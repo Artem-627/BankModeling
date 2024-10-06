@@ -1,18 +1,22 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.28)
 project(BankModeling)
 
 set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_PREFIX_PATH "C://Libraries/SFML/lib/cmake/SFML")
 
 add_executable(${PROJECT_NAME}
         main.cpp
+
+        include/Primitives.h
+        source/Primitives.cpp
+
+        include/Time.h
+        source/Time.cpp
 )
+
+add_subdirectory(tests)
 
 find_package(SFML 2.6.1 COMPONENTS network audio graphics window system REQUIRED)
-
-include_directories(${PROJECT_NAME} PRIVATE
-        ${CMAKE_SOURCE_DIR}/include
-)
-
 target_link_libraries(${PROJECT_NAME}
         sfml-network
         sfml-audio
@@ -20,3 +24,7 @@ target_link_libraries(${PROJECT_NAME}
         sfml-window
         sfml-system
 )
+
+# Enabling tests
+enable_testing()
+add_test(NAME gtest_tests COMMAND tests/tests --gtest_output=xml:./ctest-tests.xml)
