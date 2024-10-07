@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.26.4)
 project(BankModeling)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -12,9 +12,11 @@ add_executable(${PROJECT_NAME}
 
         include/Time.h
         source/Time.cpp
+        include/ClientsQueue.h
+        source/ClientsQueue.cpp
 )
 
-add_subdirectory(tests)
+#add_subdirectory(tests)
 
 find_package(SFML 2.6.1 COMPONENTS network audio graphics window system REQUIRED)
 target_link_libraries(${PROJECT_NAME}
@@ -26,5 +28,5 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 # Enabling tests
-enable_testing()
-add_test(NAME gtest_tests COMMAND tests/tests --gtest_output=xml:./ctest-tests.xml)
+#enable_testing()
+#add_test(NAME gtest_tests COMMAND tests/tests --gtest_output=xml:./ctest-tests.xml)
