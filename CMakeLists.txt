@@ -7,8 +7,8 @@ set(CMAKE_PREFIX_PATH "C://Libraries/SFML/lib/cmake/SFML")
 add_executable(${PROJECT_NAME}
         main.cpp
 
-        include/Primitives.h
-        source/Primitives.cpp
+#        include/Primitives.h
+#        source/Primitives.cpp
 
         include/Time.h
         source/Time.cpp
