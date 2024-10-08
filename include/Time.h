@@ -57,6 +57,8 @@ namespace bank_time
         // Friend functions
         friend Time operator+(const Time& time, std::uint64_t minutes);
         friend Time operator-(const Time& time, std::uint64_t minutes);
+        friend Time operator+(const Time& time1, const Time& time2);
+        friend Time operator-(const Time& time1, const Time& time2);
         friend Time operator++(Time& time);
         friend Time operator++(Time& time, int);
         friend Time operator--(Time& time);
@@ -73,6 +75,8 @@ namespace bank_time
     // Time operators
     Time operator+(const Time& time, std::uint64_t minutes);
     Time operator-(const Time& time, std::uint64_t minutes);
+    Time operator+(const Time& time1, const Time& time2);
+    Time operator-(const Time& time1, const Time& time2);
     Time operator++(Time& time);
     Time operator++(Time& time, int);
     Time operator--(Time& time);

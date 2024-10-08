@@ -1,5 +1,7 @@
 #include "../include/Time.h"
 
+#include <stdexcept>
+
 namespace bank_time
 {
     // WeekDay
@@ -114,6 +116,25 @@ namespace bank_time
         const Time result(
             ((time.toMinutes() + MINUTES_IN_WEEK) - (minutes % MINUTES_IN_WEEK)) % MINUTES_IN_WEEK
         );
+
+        return result;
+    }
+
+    Time operator+(const Time& time1, const Time& time2)
+    {
+        const Time result(time1.toMinutes() + time2.toMinutes());
+
+        return result;
+    }
+
+    Time operator-(const Time& time1, const Time& time2)
+    {
+        if (time1.toMinutes() < time2.toMinutes())
+        {
+            throw std::logic_error("Time1 is less than Time2");
+        }
+
+        const Time result(time1.toMinutes() + MINUTES_IN_WEEK - time2.toMinutes());
 
         return result;
     }
