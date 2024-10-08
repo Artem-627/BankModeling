@@ -7,9 +7,10 @@
 
 namespace bank
 {
-    Banker::Banker(bank_time::Time* global_time)
+    Banker::Banker(Bank* bank, bank_time::Time* global_time)
         : id_(getNextId()),
-          global_time_(global_time)
+          global_time_(global_time),
+          bank_(bank)
     {
     }
 
@@ -21,7 +22,8 @@ namespace bank
           is_working_(other.is_working_),
           salary_(other.salary_),
           last_synced_time_(other.last_synced_time_.load()),
-          start_work_time_(other.start_work_time_)
+          start_work_time_(other.start_work_time_),
+          bank_(other.bank_)
     {
     }
 
@@ -85,6 +87,9 @@ namespace bank
         {
             throw std::logic_error("Banker is not working");
         }
+
+        bank_->ChangeTotalEarn(salary_);
+        salary_ = 0;
 
         is_working_ = false;
 
