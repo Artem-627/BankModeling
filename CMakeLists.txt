@@ -18,6 +18,8 @@ add_executable(${PROJECT_NAME}
         
         include/ClientsQueue.h
         source/ClientsQueue.cpp
+        include/Bank.h
+        source/Bank.cpp
 )
 
 #add_subdirectory(tests)
