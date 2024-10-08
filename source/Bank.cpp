@@ -1,5 +1,6 @@
 #include "../include/ClientsQueue.h"
 #include "../include/Bank.h"
+
 #include <stdexcept>
 #include <queue>
 #include <cstdint>
@@ -10,7 +11,7 @@ namespace bank
         : queue_(ClientsQueue(max_size)), time_(time), bankers_number_(bankers_number), total_earn_(0),
             new_client_probability_(1.0)
     {
-        bankers_.assign(bankers_number_, new Banker(this, time_));
+        bankers_.assign(bankers_number_, new Banker(time_));
     }
 
     std::uint16_t Bank::bankers_number() const

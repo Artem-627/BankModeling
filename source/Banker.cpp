@@ -7,10 +7,9 @@
 
 namespace bank
 {
-    Banker::Banker(Bank* bank, bank_time::Time* global_time)
+    Banker::Banker(bank_time::Time* global_time)
         : id_(getNextId()),
-          global_time_(global_time),
-          bank_(bank)
+          global_time_(global_time)
     {
     }
 
@@ -22,8 +21,7 @@ namespace bank
           is_working_(other.is_working_),
           salary_(other.salary_),
           last_synced_time_(other.last_synced_time_.load()),
-          start_work_time_(other.start_work_time_),
-          bank_(other.bank_)
+          start_work_time_(other.start_work_time_)
     {
     }
 
@@ -88,9 +86,6 @@ namespace bank
             throw std::logic_error("Banker is not working");
         }
 
-        bank_->ChangeTotalEarn(salary_);
-        salary_ = 0;
-
         is_working_ = false;
 
         delete start_work_time_;
@@ -101,9 +96,13 @@ namespace bank
         work_thread_ = nullptr;
     }
 
-    std::int64_t Banker::getSalary() const
+    std::int64_t Banker::getSalary()
     {
-        return salary_;
+        const std::int64_t result_salary = salary_;
+
+        salary_ = 0;
+
+        return result_salary;
     }
 
     void Banker::setClient(Client* client)
