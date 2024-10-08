@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.26.4)
 project(BankModeling)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -15,6 +15,9 @@ add_executable(${PROJECT_NAME}
 
         include/Banker.h
         source/Banker.cpp
+        
+        include/ClientsQueue.h
+        source/ClientsQueue.cpp
 )
 
 #add_subdirectory(tests)
