@@ -9,8 +9,8 @@ namespace bank
         return last_request_id++;
     }
 
-    Request::Request(const std::uint64_t &time)
-        : id_(getNextId()), time_(time)
+    Request::Request(const std::uint64_t& time, const std::int64_t& cost)
+        : id_(getNextId()), time_(time), cost_(cost)
     {
     }
 
@@ -24,6 +24,11 @@ namespace bank
         return time_;
     }
 
+    std::int64_t Request::cost() const
+    {
+        return cost_;
+    }
+
 
     // Client
     inline std::uint64_t Client::getNextId()
@@ -34,6 +39,11 @@ namespace bank
 
     Client::Client()
         : id_(getNextId()), request_(nullptr)
+    {
+    }
+
+    Client::Client(Request* request)
+        : id_(getNextId()), request_(request)
     {
     }
 

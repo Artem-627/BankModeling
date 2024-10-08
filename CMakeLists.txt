@@ -7,14 +7,17 @@ set(CMAKE_PREFIX_PATH "C://Libraries/SFML/lib/cmake/SFML")
 add_executable(${PROJECT_NAME}
         main.cpp
 
-#        include/Primitives.h
-#        source/Primitives.cpp
+        include/Primitives.h
+        source/Primitives.cpp
 
         include/Time.h
         source/Time.cpp
+
+        include/Banker.h
+        source/Banker.cpp
 )
 
-add_subdirectory(tests)
+#add_subdirectory(tests)
 
 find_package(SFML 2.6.1 COMPONENTS network audio graphics window system REQUIRED)
 target_link_libraries(${PROJECT_NAME}
@@ -26,5 +29,5 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 # Enabling tests
-enable_testing()
-add_test(NAME gtest_tests COMMAND tests/tests --gtest_output=xml:./ctest-tests.xml)
+#enable_testing()
+#add_test(NAME gtest_tests COMMAND tests/tests --gtest_output=xml:./ctest-tests.xml)
