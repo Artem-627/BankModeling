@@ -1,9 +1,6 @@
 #pragma once
 
-#include "../include/Primitives.h"
-#include "../include/Time.h"
-#include "../include/ClientsQueue.h"
-#include <queue>
+#include "../include/Banker.h"
 #include <cstdint>
 
 class Bank {
@@ -27,7 +24,7 @@ private:
     ClientsQueue queue_;
     bank_time::Time* time_;
     std::uint16_t bankers_number_;
-    // vector of Bankers
+    std::vector<bank::Banker*> bankers;
     std::int64_t total_earn_;
     double new_client_probability_;
 };

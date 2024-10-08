@@ -1,6 +1,3 @@
-
-#include "../include/Primitives.h"
-#include "../include/Time.h"
 #include "../include/ClientsQueue.h"
 #include "../include/Bank.h"
 #include <stdexcept>
@@ -10,6 +7,7 @@
 Bank::Bank(std::uint16_t max_size, bank_time::Time* time, std::uint16_t bankers_number)
 : queue_(ClientsQueue(max_size)), time_(time), bankers_number_(bankers_number), total_earn_(0), new_client_probability_(1.0)
 {
+    bankers.assign(bankers_number_, new bank::Banker(time_));
 }
 
 std::uint16_t Bank::bankers_number() const
