@@ -6,6 +6,7 @@
 
 #include "Primitives.h"
 #include "Time.h"
+#include "Bank.h"
 
 namespace bank
 {
@@ -14,7 +15,7 @@ namespace bank
     public:
         Banker() = delete;
 
-        explicit Banker(bank_time::Time* global_time);
+        Banker(Bank* bank, bank_time::Time* global_time);
 
         Banker(const Banker &other);
 
@@ -41,6 +42,7 @@ namespace bank
         std::int64_t salary_ = 0;
         std::atomic<bank_time::Time> last_synced_time_ = {};
         bank_time::Time* start_work_time_ = nullptr;
+        Bank* bank_ = nullptr;
 
 
         static inline std::uint64_t getNextId();
