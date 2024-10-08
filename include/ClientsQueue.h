@@ -4,21 +4,25 @@
 #include <queue>
 #include <cstdint>
 
-class ClientsQueue {
-public:
-    explicit ClientsQueue(std::uint16_t max_size);
+namespace bank
+{
+    class ClientsQueue {
+    public:
+        explicit ClientsQueue(std::uint16_t max_size);
 
-    [[nodiscard]]
-    std::uint16_t max_size() const;
+        [[nodiscard]]
+        std::uint16_t max_size() const;
 
-    [[nodiscard]]
-    std::uint16_t cur_size() const;
+        [[nodiscard]]
+        std::uint16_t cur_size() const;
 
-    void newClient(bank::Client* client);
-    bank::Client* getClient();
+        void newClient(bank::Client *client);
 
-private:
-    std::queue<bank::Client*> queue_;
-    std::uint16_t max_size_;
-    std::uint16_t cur_size_;
-};
+        bank::Client *getClient();
+
+    private:
+        std::queue<bank::Client *> queue_;
+        std::uint16_t max_size_;
+        std::uint16_t cur_size_;
+    };
+}
