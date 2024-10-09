@@ -19,7 +19,7 @@ namespace bank {
 
     void ClientsQueue::newClient(bank::Client *client)
     {
-        if (cur_size_ < max_size_) throw std::runtime_error("queue is full");
+        if (cur_size_ >= max_size_) throw std::runtime_error("queue is full");
 
         cur_size_++;
         queue_.push(client);
@@ -33,5 +33,17 @@ namespace bank {
         bank::Client *cur_client = queue_.front();
         queue_.pop();
         return cur_client;
+    }
+
+    std::vector<const bank::Client *> ClientsQueue::getAllClients() const
+    {
+        std::vector<const bank::Client *> clients;
+        auto buffer_queue = queue_;
+        while (!buffer_queue.empty())
+        {
+            clients.push_back(buffer_queue.front());
+            buffer_queue.pop();
+        }
+        return clients;
     }
 }

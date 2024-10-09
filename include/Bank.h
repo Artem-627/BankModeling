@@ -5,6 +5,7 @@
 #include "Primitives.h"
 #include "Time.h"
 
+#include <thread>
 #include <cstdint>
 #include <vector>
 
@@ -28,6 +29,16 @@ namespace bank
 
         void ChangeNewClientProbability(double coefficient);
 
+        [[nodiscard]]
+        std::vector <const Client*> getAllClients() const;
+
+        [[nodiscard]]
+        std::vector <const Banker*> getAllBankers() const;
+
+        void start();
+
+        void stop();
+
         void ChangeTotalEarn(std::int64_t change);
 
     private:
@@ -37,5 +48,11 @@ namespace bank
         std::vector<bank::Banker*> bankers_;
         std::int64_t total_earn_;
         double new_client_probability_;
+        std::thread* queue_processing_thread_ = nullptr;
+        bool is_queue_processing_ = false;
+
+        void startQueueProcessing();
+
+        void stopQueueProcessing();
     };
 }

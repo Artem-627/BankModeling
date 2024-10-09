@@ -20,6 +20,9 @@ namespace bank
 
         bank::Client *getClient();
 
+        [[nodiscard]]
+        std::vector<const bank::Client*> getAllClients() const;
+
     private:
         std::queue<bank::Client *> queue_;
         std::uint16_t max_size_;
