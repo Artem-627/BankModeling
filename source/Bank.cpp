@@ -24,6 +24,11 @@ namespace bank
         return bankers_number_;
     }
 
+    std::uint32_t Bank::lost_clients_number() const
+    {
+        return lost_clients_number_;
+    }
+
     std::int64_t Bank::total_earn() const
     {
         return total_earn_;
@@ -39,6 +44,7 @@ namespace bank
         try {
             queue_.newClient(client);
         } catch (const char *error_message) {
+            lost_clients_number_++;
             throw std::runtime_error(error_message);
         }
     }

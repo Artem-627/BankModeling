@@ -20,6 +20,9 @@ namespace bank
         std::uint16_t bankers_number() const;
 
         [[nodiscard]]
+        std::uint32_t lost_clients_number() const;
+
+        [[nodiscard]]
         std::int64_t total_earn() const;
 
         [[nodiscard]]
@@ -50,6 +53,7 @@ namespace bank
         double new_client_probability_;
         std::thread* queue_processing_thread_ = nullptr;
         bool is_queue_processing_ = false;
+        std::uint32_t lost_clients_number_ = 0;
 
         void startQueueProcessing();
 

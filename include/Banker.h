@@ -27,6 +27,18 @@ namespace bank
         [[nodiscard]]
         std::int64_t getSalary();
 
+        [[nodiscard]]
+        std::int32_t getClientsNumber();
+
+        [[nodiscard]]
+        std::int32_t getWorkMinutes();
+
+        [[nodiscard]]
+        std::int32_t getDowntimeMinutes();
+
+        [[nodiscard]]
+        std::int32_t getClientsWaitingTime();
+
         void setClient(Client* client);
 
         [[nodiscard]]
@@ -41,6 +53,10 @@ namespace bank
         std::int64_t salary_ = 0;
         std::atomic<bank_time::Time> last_synced_time_ = {};
         bank_time::Time* start_work_time_ = nullptr;
+        std::uint32_t clients_served_number_ = 0;
+        std::uint32_t work_minutes_ = 0;
+        std::uint32_t downtime_minutes_ = 0;
+        std::uint32_t clients_waiting_time_ = 0;
 
 
         static inline std::uint64_t getNextId();
