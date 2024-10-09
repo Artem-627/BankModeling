@@ -21,6 +21,8 @@ add_executable(${PROJECT_NAME}
         include/Bank.h
         source/Bank.cpp
         include/Statistics.h
+        include/Analyzer.h
+        source/Analyzer.cpp
 )
 
 #add_subdirectory(tests)

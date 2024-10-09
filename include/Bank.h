@@ -28,6 +28,9 @@ namespace bank
         [[nodiscard]]
         double new_client_probability() const;
 
+        [[nodiscard]]
+        std::uint16_t getCurrentQueueLength() const;
+
         void newClient(bank::Client* client);
 
         void ChangeNewClientProbability(double coefficient);
@@ -36,7 +39,7 @@ namespace bank
         std::vector <const Client*> getAllClients() const;
 
         [[nodiscard]]
-        std::vector <const Banker*> getAllBankers() const;
+        std::vector <Banker*> getAllBankers();
 
         void start();
 

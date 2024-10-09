@@ -39,6 +39,11 @@ namespace bank
         return new_client_probability_;
     }
 
+    std::uint16_t Bank::getCurrentQueueLength() const
+    {
+        return queue_.cur_size();
+    }
+
     void Bank::newClient(bank::Client *client)
     {
         try {
@@ -64,9 +69,9 @@ namespace bank
         return queue_.getAllClients();
     }
 
-    std::vector <const bank::Banker *> Bank::getAllBankers() const
+    std::vector <bank::Banker *> Bank::getAllBankers()
     {
-        std::vector <const bank::Banker *> result;
+        std::vector <bank::Banker *> result;
         for (const auto& banker : bankers_)
         {
             result.push_back(banker);
