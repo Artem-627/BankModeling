@@ -82,10 +82,11 @@ namespace bank
     {
         for (const auto &banker : bankers_)
         {
+            total_earn_ += banker->getSalary();
             banker->stop();
         }
 
-        startQueueProcessing();
+        stopQueueProcessing();
     }
 
     void Bank::startQueueProcessing()
