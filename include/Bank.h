@@ -20,10 +20,16 @@ namespace bank
         std::uint16_t bankers_number() const;
 
         [[nodiscard]]
+        std::uint32_t lost_clients_number() const;
+
+        [[nodiscard]]
         std::int64_t total_earn() const;
 
         [[nodiscard]]
         double new_client_probability() const;
+
+        [[nodiscard]]
+        std::uint16_t getCurrentQueueLength() const;
 
         void newClient(bank::Client* client);
 
@@ -33,7 +39,7 @@ namespace bank
         std::vector <const Client*> getAllClients() const;
 
         [[nodiscard]]
-        std::vector <const Banker*> getAllBankers() const;
+        std::vector <Banker*> getAllBankers();
 
         void start();
 
@@ -50,6 +56,7 @@ namespace bank
         double new_client_probability_;
         std::thread* queue_processing_thread_ = nullptr;
         bool is_queue_processing_ = false;
+        std::uint32_t lost_clients_number_ = 0;
 
         void startQueueProcessing();
 

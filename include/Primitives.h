@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Time.h"
 #include <cstdint>
 
 namespace bank
@@ -32,7 +33,9 @@ namespace bank
     public:
         Client();
 
-        explicit Client(Request* request);
+        explicit Client(Request* request, bank_time::Time arrival_time);
+
+        ~Client();
 
         [[nodiscard]]
         std::uint64_t id() const;
@@ -40,9 +43,13 @@ namespace bank
         [[nodiscard]]
         Request request() const;
 
+        [[nodiscard]]
+        bank_time::Time arrival_time() const;
+
     private:
         std::uint64_t id_;
         Request* request_;
+        bank_time::Time arrival_time_{};
 
         static inline std::uint64_t getNextId();
     };

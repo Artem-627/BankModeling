@@ -42,9 +42,15 @@ namespace bank
     {
     }
 
-    Client::Client(Request* request)
-        : id_(getNextId()), request_(request)
+    Client::Client(Request* request, bank_time::Time arrival_time_)
+        : id_(getNextId()), request_(request), arrival_time_(arrival_time_)
     {
+    }
+
+    Client::~Client()
+    {
+        delete request_;
+        request_ = nullptr;
     }
 
     std::uint64_t Client::id() const
@@ -55,5 +61,10 @@ namespace bank
     Request Client::request() const
     {
         return *request_;
+    }
+
+    bank_time::Time Client::arrival_time() const
+    {
+        return arrival_time_;
     }
 }
