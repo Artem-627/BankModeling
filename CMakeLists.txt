@@ -24,6 +24,11 @@ add_executable(${PROJECT_NAME}
 
         include/TimeProcessing.h
         source/TimeProcessing.cpp
+        
+        include/Statistics.h
+        
+        include/Analyzer.h
+        source/Analyzer.cpp
 )
 
 #add_subdirectory(tests)

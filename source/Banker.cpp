@@ -59,19 +59,27 @@ namespace bank
                         if (start_work_time_ == nullptr)
                         {
                             start_work_time_ = new bank_time::Time(*global_time_);
+                        } else
+                        {
+                            work_minutes_++;
                         }
 
                         if (
                             (*global_time_ - *start_work_time_).toMinutes() >= curr_client_.load()->request().time()
                         )
                         {
+                            clients_served_number_++;
                             salary_ += curr_client_.load()->request().cost();
 
                             delete start_work_time_;
                             start_work_time_ = nullptr;
 
+                            delete curr_client_;
                             curr_client_ = nullptr;
                         }
+                    } else
+                    {
+                        downtime_minutes_++;
                     }
                     last_synced_time_ = last_synced_time_ + 1;
                 }
@@ -105,12 +113,49 @@ namespace bank
         return result_salary;
     }
 
+    std::int32_t Banker::getClientsNumber()
+    {
+        const std::int32_t result_clients_number = clients_served_number_;
+
+        clients_served_number_ = 0;
+
+        return result_clients_number;
+    }
+
+    std::int32_t Banker::getWorkMinutes()
+    {
+        const std::int32_t result_work_minutes = work_minutes_;
+
+        work_minutes_ = 0;
+
+        return result_work_minutes;
+    }
+
+    std::int32_t Banker::getDowntimeMinutes()
+    {
+        const std::int32_t result_downtime_minutes = downtime_minutes_;
+
+        downtime_minutes_ = 0;
+
+        return result_downtime_minutes;
+    }
+
+    std::int32_t Banker::getClientsWaitingTime()
+    {
+        const std::int32_t result_clients_waiting_time = clients_waiting_time_;
+
+        clients_waiting_time_ = 0;
+
+        return result_clients_waiting_time;
+    }
+
     void Banker::setClient(Client* client)
     {
         if (curr_client_ != nullptr)
         {
             throw std::logic_error("The banker is already busy");
         }
+        clients_waiting_time_ += (*global_time_ - client->arrival_time()).toMinutes();
         curr_client_.store(client);
     }
 
