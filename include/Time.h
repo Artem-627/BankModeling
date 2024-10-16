@@ -4,9 +4,9 @@
 
 namespace bank_time
 {
-    constexpr std::uint64_t MINUTES_IN_HOUR = 60;
-    constexpr std::uint64_t MINUTES_IN_DAY = (60 * 24);
-    constexpr std::uint64_t MINUTES_IN_WEEK = (60 * 24 * 7);
+    constexpr std::uint64_t kMinutesInHour = 60;
+    constexpr std::uint64_t kMinutesInDay = (60 * 24);
+    constexpr std::uint64_t kMinutesInWeek = (60 * 24 * 7);
 
     enum class WeekDay
     {

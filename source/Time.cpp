@@ -75,9 +75,9 @@ namespace bank_time
     }
 
     Time::Time(const std::uint64_t minutes)
-        : week_day_(toWeekDay(minutes / MINUTES_IN_DAY)),
-          hours_((minutes % MINUTES_IN_DAY) / MINUTES_IN_HOUR),
-          minutes_(minutes % MINUTES_IN_HOUR)
+        : week_day_(toWeekDay(minutes / kMinutesInDay)),
+          hours_((minutes % kMinutesInDay) / kMinutesInHour),
+          minutes_(minutes % kMinutesInHour)
     {
     }
 
@@ -99,7 +99,7 @@ namespace bank_time
 
     std::uint64_t Time::toMinutes() const
     {
-        return (static_cast<std::uint64_t>(week_day_) * MINUTES_IN_DAY) + (hours_ * MINUTES_IN_HOUR) + minutes_;
+        return (static_cast<std::uint64_t>(week_day_) * kMinutesInDay) + (hours_ * kMinutesInHour) + minutes_;
     }
 
 
@@ -114,7 +114,7 @@ namespace bank_time
     Time operator-(const Time& time, const std::uint64_t minutes)
     {
         const Time result(
-            ((time.toMinutes() + MINUTES_IN_WEEK) - (minutes % MINUTES_IN_WEEK)) % MINUTES_IN_WEEK
+            ((time.toMinutes() + kMinutesInWeek) - (minutes % kMinutesInWeek)) % kMinutesInWeek
         );
 
         return result;
@@ -134,7 +134,7 @@ namespace bank_time
             throw std::logic_error("Time1 is less than Time2");
         }
 
-        const Time result(time1.toMinutes() + MINUTES_IN_WEEK - time2.toMinutes());
+        const Time result(time1.toMinutes() + kMinutesInWeek - time2.toMinutes());
 
         return result;
     }

@@ -2,30 +2,35 @@
 #include <iostream>
 
 #include "include/Bank.h"
+#include "include/TimeProcessing.h"
 
 int main()
 {
-    bank_time::Time global_time = {};
-    bool is_timer_work = true;
-    std::thread timer([&]()
-    {
-        while (is_timer_work)
-        {
-            ++global_time;
-            sf::sleep(sf::milliseconds(100));
-        }
-    });
+    auto global_time = new bank_time::Time(0);
 
+    // bank_time::Time global_time = {};
+    // bool is_timer_work = true;
+    // std::thread timer([&]()
+    // {
+    //     while (is_timer_work)
+    //     {
+    //         ++global_time;
+    //         sf::sleep(sf::milliseconds(100));
+    //     }
+    // });
 
-    bank::Bank bank(10, &global_time, 4);
+    bank::Bank bank(10, global_time, 4);
+
+    bank_time::TimeProcessing time_processing(&bank, global_time);
+    time_processing.start();
 
     std::vector<bank::Request*> requests = {
-        new bank::Request{12, 1},
-        new bank::Request{34, 1},
-        new bank::Request{44, 1},
-        new bank::Request{37, 1},
-        new bank::Request{27, 1},
-        new bank::Request{7, 1},
+        new bank::Request{12, 445},
+        new bank::Request{34, 43},
+        new bank::Request{12, 445},
+        new bank::Request{34, 43},
+        new bank::Request{12, 445},
+        new bank::Request{34, 43},
         new bank::Request{18, 1}
     };
 
@@ -38,13 +43,13 @@ int main()
 
     bool has_clients = true;
 
-    while (has_clients)
+    while (global_time->toMinutes() <= 670)
     {
-        std::cout << "[" << static_cast<uint64_t>(global_time.weekDay()) << " " <<
-            (static_cast<uint64_t>(global_time.hours()) < 10 ? "0" : "") <<
-            static_cast<uint64_t>(global_time.hours()) << ":" <<
-            (static_cast<uint64_t>(global_time.minutes()) < 10 ? "0" : "") <<
-            static_cast<uint64_t>(global_time.minutes()) << "]" << "\t";
+        std::cout << "[" << static_cast<uint64_t>(global_time->weekDay()) << " " <<
+            (static_cast<uint64_t>(global_time->hours()) < 10 ? "0" : "") <<
+            static_cast<uint64_t>(global_time->hours()) << ":" <<
+            (static_cast<uint64_t>(global_time->minutes()) < 10 ? "0" : "") <<
+            static_cast<uint64_t>(global_time->minutes()) << "]" << "\t";
         // std::cout << "\t\t";
         std::cout << "\t|\t";
         for (auto banker : bank.getAllBankers())
@@ -58,7 +63,7 @@ int main()
                 std::cout << "none" << "\t|\t";
             }
         }
-        std::cout << "Queue: ";
+        std::cout << "Q: ";
         for (const auto& client : bank.getAllClients())
         {
             std::cout << client->id();
@@ -87,8 +92,7 @@ int main()
 
     bank.stop();
 
-    is_timer_work = false;
-    timer.join();
+    time_processing.stop();
 
     std::cout << "Total earn: " << bank.total_earn() << '\n';
 
