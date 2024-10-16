@@ -8,9 +8,9 @@
 
 namespace bank
 {
-    Bank::Bank(std::uint16_t max_size, bank_time::Time *time, std::uint16_t bankers_number)
+    Bank::Bank(std::uint16_t max_size, bank_time::Time* time, std::uint16_t bankers_number)
         : queue_(ClientsQueue(max_size)), time_(time), bankers_number_(bankers_number), total_earn_(0),
-            new_client_probability_(1.0)
+          new_client_probability_(1.0)
     {
         bankers_.resize(bankers_number);
         for (int i = 0; i < bankers_number; i++)
@@ -46,8 +46,13 @@ namespace bank
 
     void Bank::newClient(bank::Client *client)
     {
-        try {
+        try
+        {
             queue_.newClient(client);
+        }
+        catch (const char* error_message)
+        {
+            throw std::logic_error(error_message);
         } catch (const char *error_message) {
             lost_clients_number_++;
             throw std::runtime_error(error_message);
@@ -64,7 +69,7 @@ namespace bank
         total_earn_ += change;
     }
 
-    std::vector <const bank::Client *> Bank::getAllClients() const
+    std::vector<const bank::Client*> Bank::getAllClients() const
     {
         return queue_.getAllClients();
     }
@@ -81,7 +86,7 @@ namespace bank
 
     void Bank::start()
     {
-        for (auto &banker : bankers_)
+        for (auto& banker : bankers_)
         {
             banker->start();
         }
@@ -91,7 +96,7 @@ namespace bank
 
     void Bank::stop()
     {
-        for (const auto &banker : bankers_)
+        for (const auto& banker : bankers_)
         {
             total_earn_ += banker->getSalary();
             banker->stop();
@@ -112,14 +117,11 @@ namespace bank
         {
             while (is_queue_processing_)
             {
-                if (queue_.cur_size() > 0)
+                for (auto& banker : bankers_)
                 {
-                    for (auto &banker : bankers_)
+                    if (banker->getClient() == nullptr && queue_.cur_size() > 0)
                     {
-                        if (banker->getClient() == nullptr)
-                        {
-                            banker->setClient(queue_.getClient());
-                        }
+                        banker->setClient(queue_.getClient());
                     }
                 }
                 sf::sleep(sf::milliseconds(10));

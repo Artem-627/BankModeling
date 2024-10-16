@@ -1,7 +1,8 @@
 #include "../include/ClientsQueue.h"
 #include <stdexcept>
 
-namespace bank {
+namespace bank
+{
     ClientsQueue::ClientsQueue(std::uint16_t max_size)
         : max_size_(max_size), cur_size_(0)
     {
@@ -17,27 +18,33 @@ namespace bank {
         return cur_size_;
     }
 
-    void ClientsQueue::newClient(bank::Client *client)
+    void ClientsQueue::newClient(bank::Client* client)
     {
-        if (cur_size_ >= max_size_) throw std::runtime_error("queue is full");
+        if (cur_size_ >= max_size_)
+        {
+            throw std::logic_error("queue is full");
+        }
 
         cur_size_++;
         queue_.push(client);
     }
 
-    bank::Client *ClientsQueue::getClient()
+    bank::Client* ClientsQueue::getClient()
     {
-        if (cur_size_ == 0) throw std::runtime_error("queue is empty");
+        if (cur_size_ == 0)
+        {
+            throw std::logic_error("queue is empty");
+        }
 
         cur_size_--;
-        bank::Client *cur_client = queue_.front();
+        bank::Client* cur_client = queue_.front();
         queue_.pop();
         return cur_client;
     }
 
-    std::vector<const bank::Client *> ClientsQueue::getAllClients() const
+    std::vector<const bank::Client*> ClientsQueue::getAllClients() const
     {
-        std::vector<const bank::Client *> clients;
+        std::vector<const bank::Client*> clients;
         auto buffer_queue = queue_;
         while (!buffer_queue.empty())
         {
