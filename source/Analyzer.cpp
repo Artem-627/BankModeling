@@ -1,5 +1,3 @@
-#pragma once
-
 #include "../include/Analyzer.h"
 
 #include <stdexcept>
@@ -44,9 +42,9 @@ namespace bank
         collecting_statistics_thread_ = nullptr;
     }
 
-    bank::statistics Analyzer::getStatistics()
+    bank::Statistics Analyzer::getStatistics()
     {
-        bank::statistics result{};
+        bank::Statistics result;
         for (auto banker : bank_->getAllBankers()) {
             result.clients_served_number_ += banker->getClientsNumber();
         }
@@ -67,7 +65,7 @@ namespace bank
         }
 
         for (auto banker : bank_->getAllBankers()) {
-            result.average_queue_length_ += banker->getClientsWaitingTime();
+            result.average_waiting_time_ += banker->getClientsWaitingTime();
         }
         result.average_waiting_time_ /= result.clients_served_number_;
 

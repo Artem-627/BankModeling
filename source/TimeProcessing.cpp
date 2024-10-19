@@ -55,7 +55,7 @@ namespace bank_time
                     std::int64_t request_cost = request_cost_distribution_->operator()(gen);
 
                     const auto new_request = new bank::Request(request_time, request_cost);
-                    const auto new_client = new bank::Client(new_request);
+                    const auto new_client = new bank::Client(new_request, *global_time_);
 
                     try
                     {
@@ -65,7 +65,7 @@ namespace bank_time
                     }
                     catch (const std::logic_error &e)
                     {
-                        std::cout << "[Клиент не поместился в банк блять]" << '\n';
+                        // std::cout << "[Queue is full, new losted client]" << '\n';
                     }
                 }
 

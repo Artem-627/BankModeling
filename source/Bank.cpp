@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <queue>
+#include <iostream>
 #include <cstdint>
 #include <SFML/Graphics.hpp>
 
@@ -50,12 +51,10 @@ namespace bank
         {
             queue_.newClient(client);
         }
-        catch (const char* error_message)
-        {
-            throw std::logic_error(error_message);
-        } catch (const char *error_message) {
-            lost_clients_number_++;
-            throw std::runtime_error(error_message);
+        catch (const std::logic_error &error) {
+            ++lost_clients_number_;
+            // std::cout << "[++lost_clients_number_]" << '\n';
+            throw std::logic_error(error.what());
         }
     }
 

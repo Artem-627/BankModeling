@@ -21,7 +21,7 @@ namespace bank
 
         void stop();
 
-        bank::statistics getStatistics();
+        bank::Statistics getStatistics();
     private:
         std::vector<std::uint16_t> queue_lengths_;
         bank_time::Time* global_time_;

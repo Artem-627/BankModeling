@@ -9,13 +9,13 @@
 
 namespace bank_time
 {
-    constexpr float kNormalDistrubutionMean = 10;
+    constexpr float kNormalDistrubutionMean = 6;
     constexpr float kNormalDistrubutionStddev = 1.5;
 
-    constexpr std::uint64_t kModellingSpeed = 100; // One minute in moddeling equals to kModellingSpeed milliseconds
+    constexpr std::uint64_t kModellingSpeed = 70; // One minute in moddeling equals to kModellingSpeed milliseconds
 
     constexpr std::uint64_t kMinRequestTime = 2;
-    constexpr std::uint64_t kMaxRequestTime = 30;
+    constexpr std::uint64_t kMaxRequestTime = 50;
 
     constexpr std::int64_t kMinRequestCost = 300;
     constexpr std::int64_t kMaxRequestCost = 5000;
