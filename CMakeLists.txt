@@ -3,6 +3,7 @@ project(BankModeling)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_PREFIX_PATH "C://Libraries/SFML/lib/cmake/SFML")
+#set(CMAKE_PREFIX_PATH "/home/artem627/SQLiteCpp/vcpkg/ports/asio/")
 
 add_executable(${PROJECT_NAME}
         main.cpp
@@ -29,17 +30,26 @@ add_executable(${PROJECT_NAME}
         
         include/Analyzer.h
         source/Analyzer.cpp
+
+        include/server/Server.h
+        source/server/Server.cpp
 )
 
 #add_subdirectory(tests)
 
 find_package(SFML 2.6.1 COMPONENTS network audio graphics window system REQUIRED)
-target_link_libraries(${PROJECT_NAME}
-        sfml-network
-        sfml-audio
-        sfml-graphics
-        sfml-window
-        sfml-system
+find_package(Crow REQUIRED)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    sfml-network
+    sfml-audio
+    sfml-graphics
+    sfml-window
+    sfml-system
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+        Crow::Crow
 )
 
 # Enabling tests
